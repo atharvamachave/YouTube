@@ -10,8 +10,6 @@ import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import SportsCricketIcon from '@mui/icons-material/SportsCricket';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import MovieCreationIcon from '@mui/icons-material/MovieCreation';
-import NewspaperIcon from '@mui/icons-material/Newspaper';
-import LiveTvIcon from '@mui/icons-material/LiveTv';
 import SettingsIcon from '@mui/icons-material/Settings';
 import FlagIcon from '@mui/icons-material/Flag';
 import HelpIcon from '@mui/icons-material/Help';
@@ -29,6 +27,21 @@ const Container = styled.div`
   top: 0;
   /* Add padding to the Container */
   padding: 15px;
+  /* Initialize overflow to hidden */
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    /* Adjust styles for smaller devices (e.g., tablets) */
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  /* Display vertical scrollbar when hovering over the container */
+  &:hover {
+    overflow-y: auto;
+    /* Add a little extra space for the scrollbar to avoid layout shifting */
+    padding-right: 17px;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -55,11 +68,26 @@ const Item = styled.div`
   gap: 20px;
   cursor: pointer;
   padding: 7.5px 0px;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.soft};
+  }
+
+  @media (max-width: 768px) {
+    /* Adjust styles for smaller devices (e.g., tablets) */
+    gap: 10px;
+    padding: 5px 0px;
+  }
 `;
 
 const Hr = styled.hr`
   margin: 15px 0px;
   border: 0.5px solid ${({ theme }) => theme.soft};
+
+  @media (max-width: 768px) {
+    /* Adjust styles for smaller devices (e.g., tablets) */
+    margin: 10px 0px;
+  }
 `;
 
 const Login = styled.div``;
@@ -75,6 +103,11 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   gap: 5px;
+
+  @media (max-width: 768px) {
+    /* Adjust styles for smaller devices (e.g., tablets) */
+    padding: 5px 10px;
+  }
 `;
 
 const Title = styled.h2`
@@ -126,10 +159,12 @@ const Menu = ({ darkMode, setDarkMode }) => {
           <Hr />
           <Login>
             Sign in to like videos, comment, and subscribe.
-            <Button>
-              <AccountCircleIcon />
-              SIGN IN
-            </Button>
+            <Link to="signin" style={{ textDecoration: 'none' }}>
+              <Button>
+                <AccountCircleIcon />
+                SIGN IN
+              </Button>
+            </Link>
           </Login>
           <Hr />
           <Title>Best Of YouTube</Title>
@@ -149,14 +184,6 @@ const Menu = ({ darkMode, setDarkMode }) => {
             <MovieCreationIcon />
             Movies
           </Item>
-          <Item>
-            <NewspaperIcon />
-            News
-          </Item>
-          <Item>
-            <LiveTvIcon />
-            Live
-          </Item>
           <Hr />
           <Item>
             <SettingsIcon />
@@ -172,7 +199,7 @@ const Menu = ({ darkMode, setDarkMode }) => {
           </Item>
           <Item onClick={() => setDarkMode(!darkMode)}>
             <SettingsBrightnessIcon />
-            Dark Mode
+            {darkMode ? 'Light' : 'Dark'} Mode
           </Item>
         </Wrapper>
       </Container>
