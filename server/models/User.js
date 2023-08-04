@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
   {
@@ -14,7 +14,6 @@ const UserSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
     },
     img: {
       type: String,
@@ -26,8 +25,12 @@ const UserSchema = new mongoose.Schema(
     subscribedUsers: {
       type: [String],
     },
+    fromGoogle: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
 
-export default mongoose.model('User', UserSchema);
+export default mongoose.model("User", UserSchema);

@@ -1,8 +1,8 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const VideoSchema = new mongoose.Schema(
   {
-    userID: {
+    userId: {
       type: String,
       required: true,
     },
@@ -22,7 +22,7 @@ const VideoSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    Views: {
+    views: {
       type: Number,
       default: 0,
     },
@@ -39,7 +39,7 @@ const VideoSchema = new mongoose.Schema(
       default: [],
     },
   },
-  { timestamp: true }
+  { timestamps: true }
 );
 
-export default mongoose.model('Video', VideoSchema);
+export default mongoose.model("Video", VideoSchema);

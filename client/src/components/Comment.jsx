@@ -1,5 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
@@ -19,35 +20,41 @@ const Details = styled.div`
   gap: 10px;
   color: ${({ theme }) => theme.text};
 `;
-
 const Name = styled.span`
   font-size: 13px;
   font-weight: 500;
 `;
+
 const Date = styled.span`
   font-size: 12px;
   font-weight: 400;
   color: ${({ theme }) => theme.textSoft};
   margin-left: 5px;
 `;
-const Text = styled.div`
+
+const Text = styled.span`
   font-size: 14px;
 `;
 
-const Comment = () => {
+const Comment = ({ comment }) => {
+  const [channel, setChannel] = useState({});
+
+  useEffect(() => {
+    const fetchComment = async () => {
+      const res = await axios.get(`/users/find/${comment.userId}`);
+      setChannel(res.data)
+    };
+    fetchComment();
+  }, [comment.userId]);
+
   return (
     <Container>
-      <Avatar src="https://www.clipartmax.com/png/small/248-2487966_matthew-man-avatar-icon-png.png"></Avatar>
+      <Avatar src={channel.img} />
       <Details>
         <Name>
-          Lord Admin <Date>1 Day ago</Date>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex
-            voluptate veritatis deserunt esse repellat debitis aliquid quis illo
-            totam. Veritatis, ipsa. Quas aliquam esse explicabo ex odit culpa
-            tenetur cupiditate!
-          </Text>
+          {channel.name} <Date>1 day ago</Date>
         </Name>
+        <Text>{comment.desc}</Text>
       </Details>
     </Container>
   );
